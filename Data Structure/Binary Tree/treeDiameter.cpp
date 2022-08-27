@@ -7,7 +7,6 @@ struct Node{
 
 };
 
-
 struct Node* newNode(int data);
 int max(int a, int b){
     return (a > b) ? a : b;
@@ -42,13 +41,10 @@ int height(struct Node* node){
 
 struct Node* newNode(int data){
     struct Node* node = (struct Node*)malloc(sizeof(struct node));
-
     node->data = data;
     node->left = NULL;
     node->right = NULL;
-
     return node;
-
 }
 
 int main(){
