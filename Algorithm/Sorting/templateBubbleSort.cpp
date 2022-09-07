@@ -10,24 +10,19 @@ void bubbleSort(T arr[], int n){
         }
     }
    }
-
 }
-
 template<typename T>
 void printArray(T arr[], int n){
    for(int i = 0; i < n; i++){
     cout << arr[i] << " ";
    }
-
 }
 
 int main(){
-
    int arr[] = {5,4,6,3,2,8};
    int n = sizeof(arr) / sizeof(arr[0]);
    bubbleSort<int>(arr, n);
    printArray<int>(arr, n);
-
 return 0;
 }
 
