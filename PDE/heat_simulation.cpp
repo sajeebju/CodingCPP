@@ -3,7 +3,7 @@
 #include <chrono>
 #include <cmath>
 #include <iomanip>
-#include <omp.h> // Include OpenMP
+#include <omp.h>
 
 template <typename T>
 class HeatEquation2D {
@@ -34,7 +34,7 @@ public:
             }
         }
 
-        #pragma omp parallel for // Parallelize the boundary condition updates
+        #pragma omp parallel for
         for (size_t i = 0; i < nx_; ++i) {
             u_new_[i][0] = u_new_[i][1];
             u_new_[i][ny_ - 1] = u_new_[i][ny_ - 2];
