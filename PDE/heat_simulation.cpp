@@ -6,31 +6,32 @@
 #include <omp.h>
 
 template <typename T>
-class HeatEquation2D {
+class HeatEquation2D{
 public:
     HeatEquation2D(size_t nx, size_t ny, T dx, T dy, T dt, T alpha)
-        : nx_(nx), ny_(ny), dx_(dx), dy_(dy), dt_(dt), alpha_(alpha),
-          u_(nx, std::vector<T>(ny, 0)), u_new_(nx, std::vector<T>(ny, 0)) {}
+    : nx_(nx), ny_(ny)m dx_(dx)m dy_(dy), dt_(dt), alpha_(alpha),
+        u_(nx, std::vector<T>(ny, 0)), u_new_(nx, std::vector<T>(ny, 0)){}
 
-    void set_initial_condition(T value) {
-        for (size_t i = 0; i < nx_; ++i) {
-            for (size_t j = 0; j < ny_; ++j) {
-                u_[i][j] = value;
+        void set_initial_condition(T value){
+            for(size_t i = 0; i < nx_; ++i){
+                for(size_t j = 0; j < ny; j++){
+                    u_[i,j] = value;
+                }
             }
         }
-    }
 
-    void set_heat_source(size_t x, size_t y, T value) {
-        u_[x][y] = value;
-    }
+        void set_heat_source(size_t x, size_t y, T value;){
+            u_[x][y] = value;
+        }
 
-    void time_step() {
-        #pragma omp parallel for collapse(2) // Parallelize the main loop with OpenMP
-        for (size_t i = 1; i < nx_ - 1; ++i) {
-            for (size_t j = 1; j < ny_ - 1; ++j) {
-                T d2udx2 = (u_[i + 1][j] - 2 * u_[i][j] + u_[i - 1][j]) / (dx_ * dx_);
-                T d2udy2 = (u_[i][j + 1] - 2 * u_[i][j] + u_[i][j - 1]) / (dy_ * dy_);
-                u_new_[i][j] = u_[i][j] + dt_ * alpha_ * (d2udx2 + d2udy2);
+        void time_step(){
+            #pragma omp parallel for collapse(2)
+            for(size_t i = 1; i < nx - 1; ++i){
+                for(size_t j = 1; j < ny - 1; ++j){
+                    T d2udx2 = u_[i+1][j] - 2* u_[i][j] + u_[i-1][j] / (dx_ * dx_);
+                    T d2udy2 = u_[i][j+1] - 2* u_[i][j] + u_[i][j-1] / (dy_*dy_);
+                    u_new[i][j] = u_[i][j] + dt_ * alpha_ * (d2udx2 + d2udy2);
+                }
             }
         }
 
@@ -48,7 +49,6 @@ public:
 
         u_.swap(u_new_);
     }
-
     void run_simulation(size_t steps) {
         for (size_t step = 0; step < steps; ++step) {
             time_step();
