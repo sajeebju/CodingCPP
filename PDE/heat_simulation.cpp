@@ -14,8 +14,8 @@ public:
 
         void set_initial_condition(T value){
             for(size_t i = 0; i < nx_; ++i){
-                for(size_t j = 0; j < ny; j++){
-                    u_[i,j] = value;
+                for(size_t j = 0; j < ny_; j++){
+                    u_[i][j] = value;
                 }
             }
         }
@@ -26,8 +26,8 @@ public:
 
         void time_step(){
             #pragma omp parallel for collapse(2)
-            for(size_t i = 1; i < nx - 1; ++i){
-                for(size_t j = 1; j < ny - 1; ++j){
+            for(size_t i = 1; i < nx_ - 1; ++i){
+                for(size_t j = 1; j < ny_ - 1; ++j){
                     T d2udx2 = u_[i+1][j] - 2* u_[i][j] + u_[i-1][j] / (dx_ * dx_);
                     T d2udy2 = u_[i][j+1] - 2* u_[i][j] + u_[i][j-1] / (dy_*dy_);
                     u_new[i][j] = u_[i][j] + dt_ * alpha_ * (d2udx2 + d2udy2);
