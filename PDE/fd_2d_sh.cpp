@@ -39,7 +39,6 @@ void shear_avg(const std::vector<std::vector<T>>& mu,
     
     for (int i = 1; i < nx - 1; ++i) {
         for (int j = 1; j < nz - 1; ++j) {
-            // Calculate harmonic averages of shear moduli
             mux[i][j] = 2 / (1 / mu[i + 1][j] + 1 / mu[i][j]);
             muz[i][j] = 2 / (1 / mu[i][j + 1] + 1 / mu[i][j]);
         }
