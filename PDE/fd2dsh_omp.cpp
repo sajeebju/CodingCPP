@@ -33,7 +33,7 @@ void update_vel(std::vector<std::vector<double>> &vy,
     }
 }
 
-// Update shear stress
+
 void update_stress(std::vector<std::vector<double>> &syx,
                    std::vector<std::vector<double>> &syz,
                    const std::vector<std::vector<double>> &vy,
