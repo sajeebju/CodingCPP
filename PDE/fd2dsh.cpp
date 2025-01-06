@@ -16,10 +16,11 @@ const double zsrc = 250.0;
 const double f0 = 40.0;
 const double t0 = 4.0 / f0;
 
-void update_vel(std::vector<std::vector<double>> &vy, 
-                const std::vector<std::vector<double>> &syx, 
-                const std::vector<std::vector<double>> &syz, 
-                double dx, double dz, double dt, int nx, int nz, 
+
+void update_vel(std::vector<std::vector<double>> &vy,
+                const std::vector<std::vector<double>> &syx,
+                const std::vector<std::vector<double>> &syz,
+                double dx, double dz, double dt, int nx, int nz,
                 const std::vector<std::vector<double>> &rho) {
     for (int i = 1; i < nx - 1; ++i) {
         for (int j = 1; j < nz - 1; ++j) {
@@ -30,11 +31,12 @@ void update_vel(std::vector<std::vector<double>> &vy,
     }
 }
 
-void update_stress(std::vector<std::vector<double>> &syx, 
-                   std::vector<std::vector<double>> &syz, 
-                   const std::vector<std::vector<double>> &vy, 
-                   double dx, double dz, double dt, int nx, int nz, 
-                   const std::vector<std::vector<double>> &mux, 
+
+void update_stress(std::vector<std::vector<double>> &syx,
+                   std::vector<std::vector<double>> &syz,
+                   const std::vector<std::vector<double>> &vy,
+                   double dx, double dz, double dt, int nx, int nz,
+                   const std::vector<std::vector<double>> &mux,
                    const std::vector<std::vector<double>> &muz) {
     for (int i = 1; i < nx - 1; ++i) {
         for (int j = 1; j < nz - 1; ++j) {
@@ -46,8 +48,9 @@ void update_stress(std::vector<std::vector<double>> &syx,
     }
 }
 
-void shear_avg(const std::vector<std::vector<double>> &mu, int nx, int nz, 
-               std::vector<std::vector<double>> &mux, 
+
+void shear_avg(const std::vector<std::vector<double>> &mu, int nx, int nz,
+               std::vector<std::vector<double>> &mux,
                std::vector<std::vector<double>> &muz) {
     for (int i = 1; i < nx - 1; ++i) {
         for (int j = 1; j < nz - 1; ++j) {
@@ -56,6 +59,7 @@ void shear_avg(const std::vector<std::vector<double>> &mu, int nx, int nz,
         }
     }
 }
+
 
 void FD_2D_SH(double dt, double dx, double dz) {
     int nx = static_cast<int>(xmax / dx);
